@@ -25,7 +25,10 @@ public class Alunos {
     @Column(nullable = false, length = 50)
     private String curso;
 
-    @Column(nullable = false, length = 4)
-    private String nota;
+    @Column( length = 4)
+    private int nota;
+
+
+
 
 }
