@@ -1,12 +1,14 @@
 package com.curso.api.APICurso.models;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
 public class Alunos {
 
     @Id
@@ -24,6 +26,7 @@ public class Alunos {
 
     @Column(nullable = false, length = 50)
     private String curso;
+
 
     @Column( length = 4)
     private int nota;
