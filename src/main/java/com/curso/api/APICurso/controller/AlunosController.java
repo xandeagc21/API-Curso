@@ -36,7 +36,18 @@ public class AlunosController {
         return alunosService.buscarId(id);
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletaId(@PathVariable Long id) throws AlunosNotFoundException {
+        alunosService.delete(id);
+    }
 
+
+    @PutMapping("/{id}")
+    public MessageResponseDTO atualizaPorId (@PathVariable Long id, @RequestBody AlunosDTO alunosDTO)
+            throws AlunosNotFoundException{
+        return alunosService.atualizaPorId(id ,alunosDTO);
+    }
 
 }
 

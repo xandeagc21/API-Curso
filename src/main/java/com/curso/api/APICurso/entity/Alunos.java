@@ -40,7 +40,12 @@ public class Alunos {
     private String curso;
 
     @Column(nullable = false)
-    private int nota;
+    private int nota1;
+
+    @Column(nullable = false)
+    private int nota2;
+
+    private int media=nota1+nota2 /2;
 
 
 }

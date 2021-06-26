@@ -37,5 +37,11 @@ public class AlunosDTO {
 
     @NotEmpty
     @Size(min = 2, max = 3)
-    private int nota;
+    private int nota1;
+
+    @NotEmpty
+    @Size(min = 2, max = 3)
+    private int nota2;
+
+    private int media;
 }

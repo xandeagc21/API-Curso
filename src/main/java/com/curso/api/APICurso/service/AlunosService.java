@@ -27,7 +27,11 @@ public class AlunosService {
 
         Alunos salvarToAluno = alunosMapper.toModel(alunosDTO);
 
+
+
         Alunos alunoSalvar = alunoRepository.save(salvarToAluno);
+
+
 
         return criarMessageResponse(alunoSalvar.getId(), "Aluno cadastrado com sucesso com ID");
 
@@ -45,9 +49,20 @@ public class AlunosService {
         return  alunosMapper.toDTO(alunos);
     }
 
+    public MessageResponseDTO atualizaPorId(Long id, AlunosDTO alunosDTO) throws AlunosNotFoundException{
 
+        verifaSeExiste(id);
 
+        Alunos atualizaAluno = alunosMapper.toModel(alunosDTO);
 
+        Alunos alunoAtualiza = alunoRepository.save(atualizaAluno);
+        return criarMessageResponse(alunoAtualiza.getId(),"Cadastro atualizado com Sucesso");
+    }
+
+    public void delete(Long id) throws AlunosNotFoundException {
+        verifaSeExiste(id);
+        alunoRepository.deleteById(id);
+    }
 
 
     private Alunos verifaSeExiste(Long id) throws AlunosNotFoundException {
@@ -60,6 +75,7 @@ public class AlunosService {
                 .message(message + id)
                 .build();
     }
+
 
 
 }
