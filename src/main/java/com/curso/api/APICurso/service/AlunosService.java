@@ -1,41 +1,65 @@
 package com.curso.api.APICurso.service;
 
+import com.curso.api.APICurso.dto.request.AlunosDTO;
+import com.curso.api.APICurso.dto.response.MessageResponseDTO;
 import com.curso.api.APICurso.entity.Alunos;
-import com.curso.api.APICurso.dto.response.MessageResponseModels;
+import com.curso.api.APICurso.exception.AlunosNotFoundException;
 import com.curso.api.APICurso.mapper.AlunosMapper;
 import com.curso.api.APICurso.repository.AlunoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
+@AllArgsConstructor
+
 public class AlunosService {
 
 
     private AlunoRepository alunoRepository;
 
-   /* private final AlunosMapper personMapper = AlunosMapper.INSTANCE;*/
+    private final AlunosMapper alunosMapper = AlunosMapper.INSTANCE;
 
-    @Autowired
-    public AlunosService(AlunoRepository alunoRepository) {
-        this.alunoRepository = alunoRepository;
+    public MessageResponseDTO criarAlunos(AlunosDTO alunosDTO) {
+
+        Alunos salvarToAluno = alunosMapper.toModel(alunosDTO);
+
+        Alunos alunoSalvar = alunoRepository.save(salvarToAluno);
+
+        return criarMessageResponse(alunoSalvar.getId(), "Aluno cadastrado com sucesso com ID");
+
     }
 
-    public MessageResponseModels criarAlunos(Alunos alunos) {
-        Alunos savedAlunos = alunoRepository.save(alunos);
-        return MessageResponseModels
+    public List<AlunosDTO> listaTodos() {
+        List<Alunos> todosAlunos = alunoRepository.findAll();
+        return todosAlunos.stream()
+                .map(alunosMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+    public AlunosDTO buscarId(Long id) throws AlunosNotFoundException {
+        Alunos alunos = verifaSeExiste(id);
+
+        return  alunosMapper.toDTO(alunos);
+    }
+
+
+
+
+
+
+    private Alunos verifaSeExiste(Long id) throws AlunosNotFoundException {
+        return alunoRepository.findById(id)
+                .orElseThrow(() -> new AlunosNotFoundException(id));
+    }
+    private MessageResponseDTO criarMessageResponse(Long id, String message) {
+        return MessageResponseDTO
                 .builder()
-                .message(" aluno cadastrado com sucesso com ID " + savedAlunos.getId())
+                .message(message + id)
                 .build();
     }
 
-    public List<AlunosDto> listAll() {
-        List<Alunos> allPeople = alunoRepository.findAll();
-        return allPeople.stream()
-                .map(personMapper::toDTO)
-                .collect(Collectors.toList());
-
-
 
 }
-

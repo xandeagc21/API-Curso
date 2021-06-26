@@ -25,6 +25,8 @@ public class AlunosDTO {
     @Size(min = 2, max = 100)
     private String sobreNome;
 
+    private String dataNascimento;
+
     @NotEmpty
     @Size(min = 2, max = 100)
     private String email;
