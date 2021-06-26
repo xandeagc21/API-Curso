@@ -1,4 +1,4 @@
-package com.curso.api.APICurso.models;
+package com.curso.api.APICurso.entity;
 
 
 import lombok.AllArgsConstructor;
@@ -15,23 +15,20 @@ public class Alunos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, length = 30)
+    @Column(nullable = false)
     private String sobreNome;
 
-    @Column(nullable = false, length = 30,unique = true)
+    @Column(nullable = false,unique = true)
     private String email;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String curso;
 
-
-    @Column( length = 4)
+    @Column(nullable = false)
     private int nota;
-
-
 
 
 }

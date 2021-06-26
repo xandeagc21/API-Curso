@@ -1,21 +1,22 @@
 package com.curso.api.APICurso.controller;
 
 
-import com.curso.api.APICurso.models.Alunos;
-import com.curso.api.APICurso.models.response.MessageResponseModels;
+import com.curso.api.APICurso.entity.Alunos;
+import com.curso.api.APICurso.dto.response.MessageResponseModels;
+import com.curso.api.APICurso.repository.AlunoRepository;
 import com.curso.api.APICurso.service.AlunosService;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
-
-@RestController
+@RestController@AllArgsConstructor
 @RequestMapping("/aluno")
 public class AlunosController {
 
-
+    private AlunoRepository alunoRepository;
 
     private AlunosService alunosService;
 
@@ -30,6 +31,12 @@ public class AlunosController {
         return  alunosService.criarAlunos(alunos);
 
     }
-
+    @GetMapping
+    public List<AlunosDTO> listAll() {
+        return alunosService.listAll();
+    }
 
 }
+
+
+

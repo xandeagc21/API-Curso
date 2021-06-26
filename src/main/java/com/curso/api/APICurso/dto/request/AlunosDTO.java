@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AlunoDTO {
+public class AlunosDTO {
 
     private Long id;
 
